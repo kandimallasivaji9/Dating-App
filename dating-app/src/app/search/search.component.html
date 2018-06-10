@@ -1,0 +1,64 @@
+<div class="container text-center">
+  <div id="root">
+    <div id="userPreferences">
+      <h2>Search Criteria</h2>
+      <form class="form" #f="ngForm" (ngSubmit)="filterList(f)" novalidate>
+        <div class="form-group">
+          <div class="row ">
+            <label class="control-label">Age</label>
+            <input
+              type="number"
+              name="ageMin"
+              class="form-control m-l-5"
+              value=""
+              ngModel
+              [maxlength]="2"
+              title="ageMin" required> to
+            <input
+              type="number"
+              name="ageMax"
+              class="form-control"
+              value=""
+              ngModel
+              [maxlength]="2"
+              title="ageMax" required>
+          </div>
+          <div class="row m-t-10">
+            <label class="control-label">Gender</label>
+            <label class="radio-inline m-l-5"><input type="radio" [value]="0" [(ngModel)]="gender" name="gender"
+                                                     checked="checked" required="required"/>Any</label>
+            <label class="radio-inline"><input type="radio" [value]="1" [(ngModel)]="gender" name="gender"/>Male</label>
+            <label class="radio-inline"><input type="radio" [value]="2" [(ngModel)]="gender"
+                                               name="gender"/>Female</label>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-default" (click)="reset()">Reset</button>
+        <button type="submit" class="btn btn-primary m-l-5">Filter</button>
+      </form>
+    </div>
+
+    <!-- YOUR CODE HERE -->
+    <div id="searchResults" class="container-fluid">
+      <h2>{{this.displaySearchResults.length}} Candidates Found</h2>
+      <ul *ngFor="let data of this.displaySearchResults; let i = index"
+          class="col-xs-12 col-lg-12 col-sm-12 col-md-12 text-center col-lg-offset-1">
+        <li class="display-inline-block">
+          <img class="photo" src="{{data.picture.large}}">
+          <p class="name lead">{{data.name.first}} {{data.name.last}}</p>
+          <p class="age lead">{{data.age}}</p>
+          <button class="btn" id="{{i}}" (click)="showDialog = !showDialog;onButtonClick($event)">Contact</button>
+        </li>
+      </ul>
+    </div>
+    <!-- END SEARCH RESULTS -->
+  </div>
+</div>
+<app-dialog [(visible)]="showDialog">
+  <div class="m-t-20">
+    <p><strong>Phone:</strong> {{this.phone}}</p><br>
+    <p><strong>CellPhone:</strong> {{this.cell}}</p><br>
+    <p><strong>Email:</strong> {{this.email}}</p>
+  </div>
+</app-dialog>
+

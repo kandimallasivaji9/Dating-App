@@ -1,0 +1,10 @@
+<div [@dialog] *ngIf="visible" class="dialog text-center">
+  <!--<div *ngFor="let data of this.searchData;let i=index">
+    <p>phone:{{data[i]}}</p>
+  </div>-->
+  <ng-content></ng-content>
+
+  <button (click)="close()" class="btn btn-primary m-t-20">Close</button>
+  <button *ngIf="closable" (click)="close()" aria-label="Close" class="dialog__close-btn">X</button>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>
